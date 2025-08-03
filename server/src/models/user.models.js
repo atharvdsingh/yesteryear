@@ -22,9 +22,9 @@ const userSchema=new Schema({
         type:String,
         required:[true,'password is not given']
     }
-    // ,refreshToken:{
-    //     type:String
-    // }
+    ,RefreshToken:{
+        type:String
+    }
 },{timestamps:true})
 userSchema.pre('save',async function(next){
     if(!this.isModified('password')) return;
@@ -32,34 +32,38 @@ userSchema.pre('save',async function(next){
     next()
 })
 
-userSchema.methods.isPasswordCorrect=async function (password){
+userSchema.methods.isPasswordCorrect=async function(password){
     return await bcrypt.compare(password,this.password)
 };
 
 
 
-userSchema.methods.generateAccessToken=function(){
-    return jwt.sign({
-        _id:this._id,
-        email:this.email,
-        userName:this.userName
-    }),
+userSchema.methods.generateAccessToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      userName: this.userName,
+      email: this.email,
+      fullName: this.fullName,
+    },
     process.env.ACCESS_TOKEN_SECRET,
     {
-        expiresIn:process.env.ACCESS_TOKEN_EXPIRY
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
-}
-
-userSchema.methods.generateRefreshToken=function(){
-    return jwt.sign({
-        _id:this._id
+  );
+};
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
     },
     process.env.REFRESH_TOKEN_SECRET,
     {
-        expiresIn:process.env.REFRESH_TOKEN_EXPIRAY
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRAY,
     }
-)
-}
+  );
+};
+
 
 
 export const User=mongoose.model('User',userSchema)

@@ -4,6 +4,20 @@ import { ApiRespons } from "../utils/ApiRespons.js";
 import { AsyncHandler } from "../utils/AsyncHandler.js";
 
 
+const generateAccessAndRefreshToken=async (userId)=>{
+    try {
+         const user= await User.findById(userId)
+         const accessToken=user.generateAccessToken()
+         const refreshToken=user.generateRefreshToken()
+         user.RefreshToken=refreshToken
+         user.save({validateBeforeSave:false})
+         return {accessToken,refreshToken}
+        
+    } catch (error) {
+        throw new ApiError(500,'Error while generating access and refresh token',)
+    }
+}
+
 
 const createAccount=AsyncHandler(async (req,res)=>{
 
@@ -40,15 +54,30 @@ const loginuser=AsyncHandler(async(req,res)=>{
         throw new ApiError(400,"Password is missing")
     }
     const user=await User.findOne({
-        $or:[{email},{password}]
+        $or:[{email},{userName}]
     })
     if(!user){
         throw new ApiError(400,'User does not exist')
     }
-    const currectPassword=await User.isPasswordCorrect(password)
+    const currectPassword=await user.isPasswordCorrect(password)
     if(!currectPassword){
         throw new ApiError(400,'wrong password')
     }
-    return res.status(200).json(new ApiRespons(200,user,currectPassword))
-})
+    const {AccessToken,RefreshToken}=await generateAccessAndRefreshToken(user._id)
+
+    const loggedInUser=await User.findById(user._id).select("-password -RefreshToken")
+    if(!loggedInUser){
+        throw new ApiError(500,'something went wrong while createing access and refresh token')
+    }
+
+    const Option={
+        httpOnly:true,
+        secure:true
+    }
+    return res.status(200).cookie('accessToken',AccessToken,Option).cookie('refreshToken',RefreshToken,Option).json(new ApiRespons(200,
+        {
+            user:loggedInUser,AccessToken,RefreshToken
+        }
+        ,'user logged in done'))
+    })
 export {createAccount ,loginuser}
