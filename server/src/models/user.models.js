@@ -15,12 +15,14 @@ const userSchema=new Schema({
         unique:true,
         lowercase:true,
         trim:true
-    },password:{
+    },
+    password:{
         type:String,
         required:[true,'password is not given']
-    },refreshToken:{
-        type:String
     }
+    // ,refreshToken:{
+    //     type:String
+    // }
 },{timestamps:true})
 
 
