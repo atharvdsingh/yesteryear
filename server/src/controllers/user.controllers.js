@@ -30,11 +30,25 @@ const createAccount=AsyncHandler(async (req,res)=>{
         return res.status(200).json(
             new ApiRespons(200,getUser,'user created')
         )
-        
-
-
-
-
 } )
-
-export {createAccount}
+const loginuser=AsyncHandler(async(req,res)=>{
+    const {email,userName,password}=req.body
+    if(!userName && !email){
+        throw new  ApiError(400,"Gmail and Password missing")
+    }
+    if(!password){
+        throw new ApiError(400,"Password is missing")
+    }
+    const user=await User.findOne({
+        $or:[{email},{password}]
+    })
+    if(!user){
+        throw new ApiError(400,'User does not exist')
+    }
+    const currectPassword=await User.isPasswordCorrect(password)
+    if(!currectPassword){
+        throw new ApiError(400,'wrong password')
+    }
+    return res.status(200).json(new ApiRespons(200,user,currectPassword))
+})
+export {createAccount ,loginuser}
