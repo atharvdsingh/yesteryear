@@ -20,6 +20,15 @@ const CreateBlog=AsyncHandler(async(req,res)=>{
         return res.status(200).json(new ApiRespons(200,{},'blog created'))
 })
 
+const getAllBlog= AsyncHandler(async(req,res)=>{
+    const {_id}=req.auth
+    const data=await Blog.find({author:_id})
+     
+    
+    return res.status(200).json(new ApiRespons(200,data,'all the blogs send'))
+    
+})
 
 
-export {CreateBlog}
+
+export {CreateBlog,getAllBlog}

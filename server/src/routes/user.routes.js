@@ -3,10 +3,11 @@ import { createAccount, loginuser, logoutUser } from '../controllers/user.contro
 import { checkJwt } from '../middlewares/auth.middleware.js';
 import { CreateBlog } from '../controllers/blog.controllers.js';
 
-const router=Router()
+const user=Router()
 
-router.route('/register').post(createAccount);
-router.route('/login').post(loginuser)
-router.route('/logout').post(checkJwt,logoutUser)
-router.route('/createblog').post(checkJwt,CreateBlog)
-export default router
+user.route('/register').post(createAccount);
+user.route('/login').post(loginuser)
+user.route('/logout').post(checkJwt,logoutUser)
+
+
+export default user
