@@ -7,11 +7,13 @@ import { AsyncHandler } from "../utils/AsyncHandler.js";
 const generateAccessAndRefreshToken=async (userId)=>{
     try {
          const user= await User.findById(userId)
-         const accessToken=user.generateAccessToken()
-         const refreshToken=user.generateRefreshToken()
-         user.RefreshToken=refreshToken
+         
+         const AccessToken=user.generateAccessToken()
+         const RefreshToken=user.generateRefreshToken()
+         user.RefreshToken=RefreshToken
          user.save({validateBeforeSave:false})
-         return {accessToken,refreshToken}
+         
+         return {AccessToken,RefreshToken}
         
     } catch (error) {
         throw new ApiError(500,'Error while generating access and refresh token',)
@@ -64,11 +66,14 @@ try {
         if(!currectPassword){
             throw new ApiError(400,'wrong password')
         }
+        console.log(user._id);
+        
         const {AccessToken,RefreshToken}=await generateAccessAndRefreshToken(user._id)
+        
     
         const loggedInUser=await User.findById(user._id).select("-password -RefreshToken")
         if(!loggedInUser){
-            throw new ApiError(500,'something went wrong while createing access and refresh token')
+            throw new ApiError(500,'something went wrong while creating access and refresh token')
         }
     
         const Option={

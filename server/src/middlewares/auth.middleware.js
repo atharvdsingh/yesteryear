@@ -1,11 +1,11 @@
 import jwt, { decode } from 'jsonwebtoken'
-import { AsyncHandler } from '../utils/AsyncHandler'
-import { ApiError } from '../utils/ApiError'
-import { User } from '../models/user.models'
+import { AsyncHandler } from '../utils/AsyncHandler.js'
+import { ApiError } from '../utils/ApiError.js'
+import { User } from '../models/user.models.js'
 
-export const checkJwt=AsyncHandler(async(res,req,next)=>{
+export const checkJwt=AsyncHandler(async(req,_,next)=>{
 try {
-        const token=req.cookie?.AccessToken || req.header("Authorization")?.replace("Bearer ","")
+        const token=req.cookies?.AccessToken
         if(!token){
             throw new ApiError(400,"cookie does not contain token")
         }
