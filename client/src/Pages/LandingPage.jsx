@@ -2,6 +2,7 @@ import React from "react";
 import Buttom from "../ Componments/Buttom";
 import Footer from "../ Componments/Footer";
 import { Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
+import Input from "../ Componments/Input";
 
 function LandingPage() {
   return (
@@ -32,6 +33,7 @@ Our memories are fragile. They fade in silence and disappear in distraction. But
             <Buttom container={<Ghost/>} text={"Get Started"}>
                 
             </Buttom>
+            
 
 
         </button>

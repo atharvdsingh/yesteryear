@@ -49,15 +49,15 @@ const createAccount=AsyncHandler(async (req,res)=>{
 } )
 const loginuser=AsyncHandler(async(req,res)=>{
 try {
-        const {email,userName,password}=req.body
-        if(!userName && !email){
+        const {email,password}=req.body
+        if( !email){
             throw new  ApiError(400,"Gmail and Password missing")
         }
         if(!password){
             throw new ApiError(400,"Password is missing")
         }
         const user=await User.findOne({
-            $or:[{email},{userName}]
+            $or:[{email}]
         })
         if(!user){
             throw new ApiError(400,'User does not exist')
@@ -86,7 +86,7 @@ try {
             }
             ,'user logged in done'))
 } catch (error) {
-    throw new ApiError(500,'Error while login the user')
+    throw new ApiError(500,'Cant login user',error.message)
 }
     })
 const logoutUser=AsyncHandler(async(req,res)=>{
