@@ -16,7 +16,7 @@ function LandingPage() {
         <div className="flex- justify-between min-w-full flex-1 align-middle bg-black ">
 
             <div className=" h-10 flex-1" >
-                <Buttom/>
+
             </div>
             <div className=" h-10 flex-1 " ></div>
         </div>
