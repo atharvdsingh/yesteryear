@@ -1,8 +1,8 @@
 import React from "react";
-import Buttom from "../ Componments/Buttom";
-import Footer from "../ Componments/Footer";
+import Buttom from "../Componments/Buttom";
+import Footer from "../Componments/Footer";
 import { Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
-import Input from "../ Componments/Input";
+import Input from "../Componments/Input";
 
 function LandingPage() {
   return (

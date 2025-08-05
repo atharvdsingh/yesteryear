@@ -48,20 +48,25 @@ const createAccount=AsyncHandler(async (req,res)=>{
         )
 } )
 const loginuser=AsyncHandler(async(req,res)=>{
-try {
         const {email,password}=req.body
+        console.log(email,password);
+        
         if( !email){
             throw new  ApiError(400,"Gmail and Password missing")
         }
         if(!password){
             throw new ApiError(400,"Password is missing")
         }
-        const user=await User.findOne({
-            $or:[{email}]
+        const user=await User.findOne({email
         })
         if(!user){
+            console.log('can not find the user');
+            
             throw new ApiError(400,'User does not exist')
         }
+        console.log('user not exist');
+        
+
         const currectPassword=await user.isPasswordCorrect(password)
         if(!currectPassword){
             throw new ApiError(400,'wrong password')
@@ -69,9 +74,13 @@ try {
         console.log(user._id);
         
         const {AccessToken,RefreshToken}=await generateAccessAndRefreshToken(user._id)
+        console.log(AccessToken,RefreshToken);
+        
         
     
         const loggedInUser=await User.findById(user._id).select("-password -RefreshToken")
+        console.log(loggedInUser);
+        
         if(!loggedInUser){
             throw new ApiError(500,'something went wrong while creating access and refresh token')
         }
@@ -85,12 +94,9 @@ try {
                 user:loggedInUser,AccessToken,RefreshToken
             }
             ,'user logged in done'))
-} catch (error) {
-    throw new ApiError(500,'Cant login user',error.message)
-}
+
     })
 const logoutUser=AsyncHandler(async(req,res)=>{
-    try {
         
         const {_id}=req.auth
         const user=await User.findById(_id)
@@ -109,9 +115,7 @@ const logoutUser=AsyncHandler(async(req,res)=>{
         .json(new ApiRespons(200,{},"User loggedout succefully"))
 
         
-    } catch (error) {
-        throw new ApiError(500 ,"Something wen wrong while logging out user")
-    }
+ 
 
 })
 

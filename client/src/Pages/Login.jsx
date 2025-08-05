@@ -1,36 +1,29 @@
 import { Lock, LogIn, Mail } from "lucide-react";
 import React, { useState } from "react";
-import Input from "../ Componments/Input";
+import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 function Login() {
   axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit} = useForm();
   //   const [disable,setdisable]=useState(false)
 
   
   const handleLogin = async (data) => {
-  try {
+    // setdisable(true)
     console.log(data);
 
-    const response = await axios.post(
-      'login', // resolved as `${VITE_USER_URL}/login`
-      data,
-      {
-        withCredentials: true, // 🔥 necessary for receiving cookies
-      }
-    );
 
-    console.log("Login response:", response.data);
-    // You can now handle storing user info if needed
-  } catch (error) {
-    console.error("Login failed:", error);
-  }
-};
+    const  user  = await axios.post('login',data);
+    console.log(user);
+    
+    // console.log(user);
+  };
 
   return (
+    <>
     <form
       onSubmit={handleSubmit(handleLogin)}
       className="max-w-96 w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white"
@@ -66,7 +59,7 @@ function Login() {
       </div>
       <div className="mt-5 text-left text-indigo-500">
         <a className="text-sm" href="#">
-          Forgot password?
+          {/* Forgot password? */}
         </a>
       </div>
 
@@ -85,6 +78,8 @@ function Login() {
         </a>
       </p>
     </form>
+        </>
+
   );
 }
 
