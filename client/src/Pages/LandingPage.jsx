@@ -1,6 +1,7 @@
 import React from "react";
 import Buttom from "../ Componments/Buttom";
 import Footer from "../ Componments/Footer";
+import { Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
 
 function LandingPage() {
   return (
@@ -10,8 +11,9 @@ function LandingPage() {
           <span className=" text-white cursor-pointer mt-2  font-light">
             YesterYear
           </span>
-          <span className="text-yellow-600 cursor-pointer mt-2 font-light">
-            Login
+          <span className=" cursor-pointer mt-2 ">
+            <Heart/>
+            
           </span>
         </div>
         <div className="flex-col flex justify-center w-full  gap-4 flex-1 items-center  ">
@@ -25,8 +27,11 @@ Our memories are fragile. They fade in silence and disappear in distraction. But
 
           <div className="flex flex-wrap justify-center gap-10 items-center">
         <button> 
-            <Buttom text={"Get Started"
-} />
+
+            
+            <Buttom container={<Ghost/>} text={"Get Started"}>
+                
+            </Buttom>
 
 
         </button>
