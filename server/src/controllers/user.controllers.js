@@ -79,7 +79,6 @@ const loginuser=AsyncHandler(async(req,res)=>{
         
     
         const loggedInUser=await User.findById(user._id).select("-password -RefreshToken")
-        console.log(loggedInUser);
         
         if(!loggedInUser){
             throw new ApiError(500,'something went wrong while creating access and refresh token')
@@ -87,7 +86,8 @@ const loginuser=AsyncHandler(async(req,res)=>{
     
         const Option={
             httpOnly:true,
-            secure:true
+            secure:false,
+            sameSite: 'lax'      
         }
         return res.status(200).cookie('AccessToken',AccessToken,Option).cookie('RefreshToken',RefreshToken,Option).json(new ApiRespons(200,
             {
@@ -108,11 +108,14 @@ const logoutUser=AsyncHandler(async(req,res)=>{
         user.save({validateBeforeSave:false})
         const Option={
             httpOnly:true,
-            secure:true
+            secure:false,
+            sameSite: 'lax'      
         }
         return res.clearCookie("AccessToken",Option)
         .clearCookie("RefreshToken",Option)
         .json(new ApiRespons(200,{},"User loggedout succefully"))
+        console.log("✅ AccessToken cookie sent with value:", AccessToken);
+
 
         
  

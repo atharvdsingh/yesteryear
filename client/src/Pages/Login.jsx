@@ -16,7 +16,9 @@ function Login() {
     console.log(data);
 
 
-    const  user  = await axios.post('login',data);
+    const  user  = await axios.post('login',data,{
+      withCredentials:true
+    });
     console.log(user);
     
     // console.log(user);

@@ -9,10 +9,11 @@ function Logout() {
     const logout=async () =>{
         try {
             const data= await axios.post('/logout',{},{
-                credentials: 'include'
+                withCredentials:true
             })
-            print(data)
-        } catch (error) {
+            console.log(data);
+            
+            } catch (error) {
             
         }
 
