@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import CreatePost from "./Pages/CreatePost";
 import Layoout from "./Componments/Layoout";
 import Container from "./Componments/Container";
+import Switch from "./Componments/Swtich";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -36,7 +37,9 @@ function App() {
     {
           path: "/login",
           element:(
-            <Container object={<Login/>} >
+            <Container object={<Switch/>} >
+                  
+
 
              
             </Container>
@@ -57,6 +60,7 @@ function App() {
 
   return <>
   <RouterProvider router={router}>
+    
 
   </RouterProvider>
   

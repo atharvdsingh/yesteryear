@@ -1,4 +1,4 @@
-import { Lock, Mail, User } from "lucide-react";
+import { LoaderCircleIcon, Lock, LucideClockFading, Mail, User } from "lucide-react";
 import React, { useState } from "react";
 import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
@@ -7,14 +7,15 @@ import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice.js";
+import Button2 from "../Componments/Buttom2.jsx";
 
 function CreateAccuont() {
   axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
-  const dispatcher=useDispatch()
+  const dispatcher = useDispatch();
 
   const { handleSubmit, register } = useForm();
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const Createaccount = async (data) => {
     try {
@@ -23,8 +24,6 @@ function CreateAccuont() {
       const respons = await axios.post("/register", data);
       if (!respons) {
         setLoading(false);
-        console.log("hellow world");
-
         return toast.error("respons");
       }
 
@@ -38,15 +37,16 @@ function CreateAccuont() {
           withCredentials: true,
         }
       );
-      if(!respons2){
-        toast.error('user not logged in ')
+      if (!respons2) {
+        setLoading(false);
+        toast.error("user not logged in ");
       }
-      dispatcher(login(respons2.data.user))
-      navigate('/')
-      
-      
-
+      dispatcher(login(respons2.data.user));
+      navigate("/");
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
+
       toast.error(error);
       console.log(error);
     }
@@ -104,17 +104,22 @@ function CreateAccuont() {
           {/* Forgot password? */}
         </a>
       </div>
-
       <button
-        //   disabled={disable}
+           disabled={loading}
 
         type="submit"
-        className="mt-2 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+        className={`mt-2 w-full flex justify-center items-center h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity  `}
       >
-        Create Account
+        
+        {loading ? ( <span className=" animate-spin text-green-100 " >  
+
+            <LoaderCircleIcon/> 
+        </span>
+             ):('Create Account')}
+        
       </button>
       <p className="text-gray-500 text-sm mt-3 mb-11">
-        Don’t have an account?{" "}
+        Don’t have an account?
         <Link className="text-blue-600" to={"/login"}>
           Login
         </Link>
