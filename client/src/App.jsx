@@ -1,24 +1,66 @@
-import { useState } from 'react'
-import './App.css'
-import LandingPage from './Pages/LandingPage'
-import Footer from './Componments/Footer'
-import Login from './Pages/Login'
-import CreateAccuont from './Pages/CreateAccuont'
-import Logout from './Componments/Logout'
+import { useState } from "react";
+import "./App.css";
+import LandingPage from "./Pages/LandingPage";
+import Footer from "./Componments/Footer";
+import Login from "./Pages/Login";
+import CreateAccuont from "./Pages/CreateAccuont";
+import Logout from "./Componments/Logout";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import CreatePost from "./Pages/CreatePost";
+import Layoout from "./Componments/Layoout";
+import Container from "./Componments/Container";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
-  return (
-    <>
-    <Logout/>
-    <div className="bg-white min-h-screen w-full flex justify-center items-center ">
-      <CreateAccuont/>
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layoout/>,
+      children: [
+        {
+          path: "/",
+          element: <LandingPage />,
+        },
+        
+        ,
+        {
+          path: "/create-post",
+          element:(
+            
+            <CreatePost />
+          ) ,
+        },
+      ],
+    },
+    {
+          path: "/login",
+          element:(
+            <Container object={<Login/>} >
 
-  <Login/>
-    </div>
-      </>
-  )
+             
+            </Container>
+          )
+        },
+        {
+          path: "/create-account",
+          element: (
+            <Container object={<CreateAccuont/>} >
+
+          <CreateAccuont />
+            </Container>
+
+          ),
+        }
+ 
+  ]);
+
+  return <>
+  <RouterProvider router={router}>
+
+  </RouterProvider>
+  
+  </>;
 }
 
-export default App
+export default App;

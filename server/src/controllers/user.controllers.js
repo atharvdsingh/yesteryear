@@ -26,7 +26,7 @@ const createAccount=AsyncHandler(async (req,res)=>{
 
         const {userName,email,password}=req.body 
         if([userName,email,password].some((data)=>data?.trim()==='')){
-            throw new ApiError(400,'credintaion required')
+            throw new ApiError(400,'credintial required')
         }
 
         const exitedUser=await User.findOne(
@@ -34,6 +34,8 @@ const createAccount=AsyncHandler(async (req,res)=>{
             $or:[{email},{userName}]
         }
         )
+        console.log(exitedUser);
+        
         if(exitedUser){
             throw new ApiError(400,'user already exist')
         }

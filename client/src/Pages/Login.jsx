@@ -4,10 +4,12 @@ import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { Link, useNavigate } from "react-router";
 
 function Login() {
   axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
   const { register, handleSubmit} = useForm();
+  const navigate=useNavigate()
   //   const [disable,setdisable]=useState(false)
 
   
@@ -75,9 +77,7 @@ function Login() {
       </button>
       <p className="text-gray-500 text-sm mt-3 mb-11">
         Don’t have an account?{" "}
-        <a className="text-indigo-500" href="#">
-          Sign up
-        </a>
+        <Link className="text-blue-600" to={'/create-account'} >Create Account</Link>
       </p>
     </form>
         </>

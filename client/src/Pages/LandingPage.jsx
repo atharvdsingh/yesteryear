@@ -3,20 +3,14 @@ import Buttom from "../Componments/Buttom";
 import Footer from "../Componments/Footer";
 import { Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
 import Input from "../Componments/Input";
+import { useNavigate } from "react-router";
 
 function LandingPage() {
+  const navigate=useNavigate()
   return (
     <>
       <div className="flex flex-col w-full min-h-screen bg-[url('/bg.avif')] bg-cover bg-center bg-no-repeat">
-        <div className="flex w-full justify-center gap-10 text-1xl">
-          <span className=" text-white cursor-pointer mt-2  font-light">
-            YesterYear
-          </span>
-          <span className=" cursor-pointer mt-2 ">
-            <Heart/>
-            
-          </span>
-        </div>
+
         <div className="flex-col flex justify-center w-full  gap-4 flex-1 items-center  ">
           <h1 className="text-white text-7xl font-poppins">
             journal your life
@@ -27,7 +21,7 @@ Our memories are fragile. They fade in silence and disappear in distraction. But
           </p>
 
           <div className="flex flex-wrap justify-center gap-10 items-center">
-        <button> 
+        <button onClick={()=> navigate('/create-account')} > 
 
             
             <Buttom container={<Ghost/>} text={"Get Started"}>

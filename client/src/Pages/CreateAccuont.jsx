@@ -1,42 +1,68 @@
-import { Lock, Mail, User } from 'lucide-react'
-import React from 'react'
-import Input from '../Componments/Input'
-import { useForm } from 'react-hook-form'
-import axios from 'axios';
+import { Lock, Mail, User } from "lucide-react";
+import React, { useState } from "react";
+import Input from "../Componments/Input";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { Link, useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice.js";
 
 function CreateAccuont() {
-      axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
+  axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
+  const dispatcher=useDispatch()
 
-    const {handleSubmit,register} = useForm();
+  const { handleSubmit, register } = useForm();
+  const [loading, setLoading] = useState(false);
+  const navigate=useNavigate()
 
+  const Createaccount = async (data) => {
+    try {
+      setLoading(true);
+      // const data=axios.post('/register',data)
+      const respons = await axios.post("/register", data);
+      if (!respons) {
+        setLoading(false);
+        console.log("hellow world");
 
+        return toast.error("respons");
+      }
 
-    const handleLogin=async (data)=>{
-        try {
-            // const data=axios.post('/register',data)
-            console.log(data);
-             const respons=axios.post('/register',data)
-             console.log(respons);
-             
-            
-
-            
-        } catch (error) {
-            console.log(error)
-            
+      const respons2 = await axios.post(
+        "/login",
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
         }
+      );
+      if(!respons2){
+        toast.error('user not logged in ')
+      }
+      dispatcher(login(respons2.data.user))
+      navigate('/')
+      
+      
+
+    } catch (error) {
+      toast.error(error);
+      console.log(error);
     }
+  };
   return (
-<form
-      onSubmit={handleSubmit(handleLogin)}
+    <form
+      onSubmit={handleSubmit(Createaccount)}
       className="max-w-96 w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white"
     >
-      <h1 className="text-gray-900 text-3xl mt-10 font-medium">Create Account</h1>
+      <h1 className="text-gray-900 text-3xl mt-10 font-medium">
+        Create Account
+      </h1>
       <p className="text-gray-500 text-sm mt-2">Please SignUp in to continue</p>
 
-
-            <div className="flex items-center w-full mt-10 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-        <User/>
+      <div className="flex items-center w-full mt-10 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
+        <User />
         <Input
           type="text"
           placeholder={"Name"}
@@ -64,7 +90,7 @@ function CreateAccuont() {
       </div>
 
       <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-        <Lock/>
+        <Lock />
         <Input
           type="password"
           placeholder="password"
@@ -89,11 +115,12 @@ function CreateAccuont() {
       </button>
       <p className="text-gray-500 text-sm mt-3 mb-11">
         Don’t have an account?{" "}
-        <a className="text-indigo-500" href="#">
-          Sign up
-        </a>
+        <Link className="text-blue-600" to={"/login"}>
+          Login
+        </Link>
       </p>
-    </form>  )
+    </form>
+  );
 }
 
-export default CreateAccuont
+export default CreateAccuont;
