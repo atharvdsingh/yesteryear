@@ -5,5 +5,5 @@ import {getAllBlog} from "../controllers/blog.controllers.js"
 
 const router=Router()
 router.route('/create-blog').post(checkJwt,CreateBlog)
-router.route('/getallblog').post(checkJwt,getAllBlog)
+router.route('/get-all-blog').post(checkJwt,getAllBlog)
 export default router

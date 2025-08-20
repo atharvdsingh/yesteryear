@@ -10,6 +10,8 @@ import CreatePost from "./Pages/CreatePost";
 import Layoout from "./Componments/Layoout";
 import Container from "./Componments/Container";
 import Switch from "./Componments/Swtich";
+import AllPost from "./Pages/AllPost";
+import Post from "./Pages/Post";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -54,6 +56,20 @@ function App() {
             </Container>
 
           ),
+        },{
+          path:"/all-post",
+          element:(
+            <Container object={<AllPost/>} >
+
+            </Container>
+          )
+        },{
+          path:"/blog/:id",
+          element:(
+            <Container object={<Post/>} >
+
+            </Container>
+          )
         }
  
   ]);
