@@ -2,12 +2,15 @@ import axios from "axios";
 import { CloudSnow, LoaderCircle, LucideClockFading, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router";
+import { add } from "../store/blogSlice";
 
 export default function AllPost() {
     axios.defaults.baseURL=import.meta.env.VITE_BLOG_URL
     const [loading,setLoading]=useState(false)
   const [blogs, setBlogs] = useState();
+  const dispatcher=useDispatch()
 
   useEffect(  ()=>{
     const fetchData=async ()=>{
@@ -22,6 +25,8 @@ export default function AllPost() {
         }
         console.log(data.data.data)
         setBlogs(data.data.data)
+        dispatcher(add(data.data.data))
+
         
         
     } catch (error) {
