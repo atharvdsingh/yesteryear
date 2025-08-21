@@ -13,6 +13,10 @@ const blogSlice=createSlice({
         add:(state,action)=>{
             state.status=true,
             state.blogData=action.payload
+        }, 
+        delete:(state,action)=>{
+            state.status=true,
+            state.blogData=action.payload
         }
     }
 })

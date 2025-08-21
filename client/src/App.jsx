@@ -12,6 +12,7 @@ import Container from "./Componments/Container";
 import Switch from "./Componments/Swtich";
 import AllPost from "./Pages/AllPost";
 import Post from "./Pages/Post";
+import Edit from "./Pages/Edit";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -67,6 +68,14 @@ function App() {
           path:"/blog/:id",
           element:(
             <Container object={<Post/>} >
+
+            </Container>
+          )
+        },
+        {
+          path:'/edit/:id',
+          element:(
+            <Container object={<Edit/>} >
 
             </Container>
           )
