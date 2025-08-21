@@ -1,30 +1,47 @@
-import { Lock, LogIn, Mail } from "lucide-react";
+import { LoaderCircle, Lock, LogIn, Mail } from "lucide-react";
 import React, { useState } from "react";
 import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 
 function Login() {
   axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
   const { register, handleSubmit} = useForm();
   const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
+  const disPatcher=useDispatch()
   //   const [disable,setdisable]=useState(false)
 
   
   const handleLogin = async (data) => {
-    
+    setLoading(true)
+
 
  try {
      const  user  = await axios.post('login',data,{
        withCredentials:true
      });
+     if(!user){
+      // toast.error("user cant be login",user)
+      console.log(user);
+      
+     }
+     console.log(user);
+     disPatcher(login(user.data.data))
+     
+     setLoading(false)
+    //  navigate('/')
  } catch (error) {
-  toast.error(error)
+  // toast.error(error)
+  console.log(error);
+  
   
  }
+ setLoading(false)
   
     
     // console.log(user);
@@ -72,12 +89,17 @@ function Login() {
       </div>
 
       <button
-        //   disabled={disable}
+           disabled={loading}
 
         type="submit"
-        className="mt-2 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+        className="mt-2 flex justify-center items-center w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
       >
-        Login
+        {
+          loading?(
+            <LoaderCircle className="animate-spin  " />
+          ):(<p>Login</p>)
+        }
+        
       </button>
       <p className="text-gray-500 text-sm mt-3 mb-11">
         Don’t have an account?{" "}

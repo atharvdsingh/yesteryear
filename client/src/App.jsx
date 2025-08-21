@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import LandingPage from "./Pages/LandingPage";
 import Footer from "./Componments/Footer";
@@ -13,8 +13,36 @@ import AllPost from "./Pages/AllPost";
 import Post from "./Pages/Post";
 import Edit from "./Pages/Edit";
 import Procted from "./Componments/Procted";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { login } from "./store/authSlice";
 
 function App() {
+  axios.defaults.baseURL=import.meta.env.VITE_USER_URL
+  const dispatcher=useDispatch()
+
+  const fetchUser=async ()=>{
+    const user=await axios.post('getme',{},{
+      withCredentials:true
+    })
+    console.log(user);
+    if(!user){
+      return
+    }
+    dispatcher(login(user.data.data))
+    
+    
+  }
+  useEffect(()=>{
+    fetchUser()
+
+
+
+  },[])
+ 
+
+
+
   const router = createBrowserRouter([
     {
       path: "/",

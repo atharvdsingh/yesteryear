@@ -14,13 +14,16 @@ export default function Procted( { children, authentication = true }) {
     } else if (!authentication && status !== authentication) {
       navigator("/");
     }
-    setLoading(false);
+    else{
+        setTimeout(() => {
+            setLoading(false);
+            
+        }, 1);
+    }
   }, [authentication, navigator, status]);
 
   return loading ? (
-    <h1>
-      <LucideClockFading className="animate-spin" />
-    </h1>
+    <div className="h-[100vh]  w-[100vw] bg-black" ></div>
   ) : (
     children   // ✅ FIX: return children directly, not { children }
   );

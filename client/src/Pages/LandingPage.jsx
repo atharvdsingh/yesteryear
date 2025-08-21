@@ -5,9 +5,14 @@ import { Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
 import Input from "../Componments/Input";
 import { useNavigate } from "react-router";
 import Logout from "../Componments/Logout";
+import { useSelector } from "react-redux";
 
 function LandingPage() {
   const navigate = useNavigate();
+  const status=useSelector((select)=>select.auth.status)
+
+  
+
   return (
     <>
 
@@ -30,9 +35,16 @@ function LandingPage() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-10 items-center">
-            <button onClick={() => navigate("/create-account")}>
+
+    {
+      status ? (<button onClick={() => navigate("/all-post")}>
+              <Buttom container={<Ghost />} text={"Blogs"}></Buttom>
+            </button>):(<button onClick={() => navigate("/create-account")}>
               <Buttom container={<Ghost />} text={"Get Started"}></Buttom>
-            </button>
+            </button>)
+    }
+
+            
           </div>
         </div>
       </div>
