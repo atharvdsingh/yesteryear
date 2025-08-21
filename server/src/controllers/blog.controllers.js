@@ -37,7 +37,22 @@ const DeleteBlog=AsyncHandler(async(req,res)=>{
     }
     return res.status(200).json(new ApiRespons(200,{}, 'blog is deleted')  )
 })
+const EditBlog=AsyncHandler(async(req,res)=>{
+
+    const {content,title,_id}=req.body
+    const data=await Blog.findByIdAndUpdate(_id,{
+        content,title
+        
+    },{
+        new:true
+    })
+    if(!data){
+        throw new ApiError(400,"blog does not found")
+    }
+    return res.status(200).json(new ApiRespons(200,data,'blog is edited'))
+
+})
 
 
 
-export {CreateBlog,DeleteBlog,getAllBlog}
+export {CreateBlog,DeleteBlog,getAllBlog,EditBlog}
