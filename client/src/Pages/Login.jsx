@@ -9,18 +9,22 @@ import { Link, useNavigate } from "react-router";
 function Login() {
   axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
   const { register, handleSubmit} = useForm();
+  const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
   //   const [disable,setdisable]=useState(false)
 
   
   const handleLogin = async (data) => {
-    // setdisable(true)
-    console.log(data);
+    
 
-
-    const  user  = await axios.post('login',data,{
-      withCredentials:true
-    });
+ try {
+     const  user  = await axios.post('login',data,{
+       withCredentials:true
+     });
+ } catch (error) {
+  toast.error(error)
+  
+ }
   
     
     // console.log(user);

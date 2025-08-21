@@ -4,7 +4,6 @@ import LandingPage from "./Pages/LandingPage";
 import Footer from "./Componments/Footer";
 import Login from "./Pages/Login";
 import CreateAccuont from "./Pages/CreateAccuont";
-import Logout from "./Componments/Logout";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import CreatePost from "./Pages/CreatePost";
 import Layoout from "./Componments/Layoout";
@@ -16,84 +15,73 @@ import Edit from "./Pages/Edit";
 import Procted from "./Componments/Procted";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layoout/>,
+      element: <Layoout />,
       children: [
         {
           path: "/",
           element: <LandingPage />,
         },
-        
+
         ,
         {
           path: "/create-post",
-          element:(
-            <Procted authentication={false} childred={<CreatePost />} />
-            
-            
-            
-          ) ,
+          element: <Procted authentication={true} childred={<CreatePost />} />,
         },
       ],
     },
     {
-          path: "/login",
-          element:(
-        
-            <Container object={<Login/>} >
-                  
-
-
-             
-            </Container>
-          )
-        },
-        {
-          path: "/create-account",
-          element: (
-            <Container object={<CreateAccuont/>} >
-
-          <CreateAccuont />
-            </Container>
-
-          ),
-        },{
-          path:"/all-post",
-          element:(
-            <Container object={<AllPost/>} >
-
-            </Container>
-          )
-        },{
-          path:"/blog/:id",
-          element:(
-            <Container object={<Post/>} >
-
-            </Container>
-          )
-        },
-        {
-          path:'/edit/:id',
-          element:(
-            <Container object={<Edit/>} >
-
-            </Container>
-          )
-        }
- 
+      path: "/login",
+      element: (
+        <Procted authentication={false}>
+          <Container object={<Login/>} >
+          </Container>
+        </Procted>
+      ),
+    },
+    {
+      path: "/create-account",
+      element: (
+        <Procted authentication={false}>
+          <Container object={<CreateAccuont />}>
+            <CreateAccuont />
+          </Container>
+        </Procted>
+      ),
+    },
+    {
+      path: "/all-post",
+      element: (
+        <Procted authentication={true}>
+          <AllPost />
+        </Procted>
+      ),
+    },
+    {
+      path: "/blog/:id",
+      element: (
+        <Procted authentication={true}>
+          <Container object={<Post />}></Container>
+        </Procted>
+      ),
+    },
+    {
+      path: "/edit/:id",
+      element: (
+        <Procted authentication={true}>
+          <Container object={<Edit />}></Container>
+        </Procted>
+      ),
+    },
   ]);
 
-  return <>
-  <RouterProvider router={router}>
-    
-
-  </RouterProvider>
-  
-  </>;
+  return (
+    <>
+      <RouterProvider router={router}></RouterProvider>
+    </>
+  );
 }
 
 export default App;
