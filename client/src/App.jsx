@@ -13,6 +13,7 @@ import Switch from "./Componments/Swtich";
 import AllPost from "./Pages/AllPost";
 import Post from "./Pages/Post";
 import Edit from "./Pages/Edit";
+import Procted from "./Componments/Procted";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -31,8 +32,10 @@ function App() {
         {
           path: "/create-post",
           element:(
+            <Procted authentication={false} childred={<CreatePost />} />
             
-            <CreatePost />
+            
+            
           ) ,
         },
       ],
@@ -40,6 +43,7 @@ function App() {
     {
           path: "/login",
           element:(
+        
             <Container object={<Login/>} >
                   
 
