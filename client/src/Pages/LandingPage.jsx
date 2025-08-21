@@ -11,12 +11,14 @@ function LandingPage() {
   const navigate = useNavigate();
   const status=useSelector((select)=>select.auth.status)
 
-  
+
 
   return (
     <>
 
       <div className="flex flex-col w-full min-h-screen bg-[url('/bg.avif')] bg-cover bg-center bg-no-repeat">
+      
+   
         <div className="flex-col flex justify-center w-full  gap-4 flex-1 items-center  ">
           <h1 className="text-white text-7xl font-poppins">
             journal your life

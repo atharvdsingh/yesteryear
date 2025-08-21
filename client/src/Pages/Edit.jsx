@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 export default function Edit() {
   axios.defaults.baseURL = import.meta.env.VITE_BLOG_URL;
@@ -43,8 +43,9 @@ export default function Edit() {
   return (
     <div className="min-h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
       <div className="max-w-3xl mx-auto py-10 px-4">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between  items-center mb-6">
           <h1 className="text-2xl font-bold">Edit Blog Post</h1>
+          <Link  className='text-2xl text-green-400 font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6' to={'/all-post'} >All Post</Link>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

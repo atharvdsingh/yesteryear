@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  CloudSnow,
-  Edit,
-  LoaderCircle,
-  LucideClockFading,
-  Trash,
-} from "lucide-react";
+import { Edit, LoaderCircle, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +11,8 @@ export default function AllPost() {
   const [loading, setLoading] = useState(false);
   const [blogs, setBlogs] = useState();
   const dispatcher = useDispatch();
-  const data = useSelector((state) => state.blog.blogs);
-  const navigator=useNavigate()
+  const navigator = useNavigate();
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -29,17 +23,17 @@ export default function AllPost() {
       );
       if (!data) {
         setLoading(false);
-        toast.error("some thing went wrong");
+        toast.error("Something went wrong ❌");
         return;
       }
-      console.log(data.data.data);
       setBlogs(data.data.data);
       dispatcher(add(data.data.data));
     } catch (error) {
       console.log(error);
+      toast.error("Failed to fetch blogs ❌");
+    } finally {
       setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -48,77 +42,85 @@ export default function AllPost() {
 
   const deleteBlog = async (_id) => {
     try {
-      const data = await axios.post(
+      await axios.post(
         "delete-post",
         { _id },
         {
           withCredentials: true,
         }
       );
+      toast.success("Blog deleted ✅");
       fetchData();
     } catch (error) {
       console.log(error);
-      toast.error("something wen wrong while deleting the blog");
+      toast.error("Something went wrong while deleting ❌");
     }
   };
-  // const handleEdit=(_id)=>{
-  //   navigator(`/edit/${_id}`)
-
-  // }
 
   return (
-    <div className="flex flex-col w-full font-serif items-center p-6 bg-black text-white min-h-screen">
-      <h1 className="text-2xl font-bold border-b-2 border-white pb-2 mb-6">
-        My Blog
-      </h1>
+    <div className="min-h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
+      <div className="max-w-3xl mx-auto py-10 px-4">
+        <div className="flex justify-between px-3 items-center  ">
 
-      {loading ? (
-        <LoaderCircle className="text-white animate-spin " />
-      ) : (
-        <ul className="w-full max-w-3xl space-y-4">
-          {" "}
-          {/* wider container */}
-          {blogs &&
-            blogs.map((blog) => (
-              <Link
-                key={blog._id}
-                className="border flex justify-between items-center border-white p-4 rounded-xl"
-                to={`/blog/${blog._id}`}
-              >
-                <div className="flex flex-col">
-                  <div className="text-xl font-semibold">{blog.title}</div>
-                  <div className="text-sm text-gray-400">{blog.date}</div>{" "}
-                  {/* showing date instead of content */}
-                </div>
-                <div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault(),
-                        e.stopPropagation(),
-                        deleteBlog(blog._id);
-                    }}
-                    className="text-red-600 px-3 py-2 rounded-lg hover:text-red-700 cursor-pointer"
-                  >
-                    <Trash />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault(), e.stopPropagation(),navigator(`/edit/${blog._id}`)
-                      // handleEdit(blog._id)
-                      
-                    }}
-                    
-                    className="text-red-600 px-3 py-2 rounded-lg hover:text-red-700 cursor-pointer"
-                  >
-                  
+        <h1 className="text-2xl font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6">
+          My Blogs
+        </h1>
 
-                    <Edit />
-                  </button>
-                </div>
-              </Link>
-            ))}
-        </ul>
-      )}
+        <Link to={'/create-post'} className="text-2xl text-green-400 font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6" > Create Post </Link>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center">
+            <LoaderCircle className="animate-spin w-8 h-8 text-blue-600" />
+          </div>
+        ) : (
+          <ul className="space-y-4">
+            {blogs &&
+              blogs.map((blog) => (
+                <Link
+                  key={blog._id}
+                  to={`/blog/${blog._id}`}
+                  className="block border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-xl p-4 hover:shadow-lg transition"
+                >
+                  <div className="flex justify-between items-center">
+                    {/* Blog Info */}
+                    <div>
+                      <h2 className="text-lg font-semibold">{blog.title}</h2>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {blog.date}
+                      </p>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          deleteBlog(blog._id);
+                        }}
+                        className="p-2 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition"
+                      >
+                        <Trash />
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          navigator(`/edit/${blog._id}`);
+                        }}
+                        className="p-2 rounded-lg text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 transition"
+                      >
+                        <Edit />
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Axis3D, Loader, LoaderCircle, LoaderIcon, LucideBadgePoundSterling, Luc
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router';
 
 export default function CreatePost() {
     axios.defaults.baseURL=import.meta.env.VITE_BLOG_URL
@@ -39,8 +40,9 @@ export default function CreatePost() {
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
       <div className="max-w-3xl mx-auto py-10 px-4">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center  mb-6">
           <h1 className="text-2xl font-bold">Create a Blog Post</h1>
+          <Link  className='text-2xl text-green-400 font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6' to={'/all-post'} >All Post</Link>
         </div>
 
         {/* Blog Form */}

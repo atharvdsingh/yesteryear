@@ -56,7 +56,13 @@ function App() {
         ,
         {
           path: "/create-post",
-          element: <Procted authentication={true} childred={<CreatePost />} />,
+          element: (
+          <Procted authentication={true
+
+          } >
+            <CreatePost/>
+          </Procted>
+          )
         },
       ],
     },
