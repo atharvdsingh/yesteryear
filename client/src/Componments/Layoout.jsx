@@ -7,7 +7,7 @@ function Layoout() {
     <main>
         <Outlet/>
     </main>
-    <Footer/>
+  
     
 
 

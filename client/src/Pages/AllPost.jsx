@@ -2,7 +2,7 @@ import axios from "axios";
 import { CloudSnow, LoaderCircle, LucideClockFading, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import { add } from "../store/blogSlice";
 
@@ -11,6 +11,7 @@ export default function AllPost() {
     const [loading,setLoading]=useState(false)
   const [blogs, setBlogs] = useState();
   const dispatcher=useDispatch()
+  const data=useSelector((state)=>state.blog.blogs)
 
   useEffect(  ()=>{
     const fetchData=async ()=>{
@@ -40,9 +41,18 @@ export default function AllPost() {
 
   },[])
 
-  const deleteBlog = async (id) => {
-    console.log(id);
+  const deleteBlog = async (_id) => {
     
+try {
+      const data=await axios.post('delete-post',{_id},{
+        withCredentials:true
+      })
+        
+} catch (error) {
+  console.log(error)
+  toast.error('something wen wrong while deleting the blog')
+  
+}
     
   };
 
@@ -68,7 +78,7 @@ export default function AllPost() {
               <div className="text-sm text-gray-400">{blog.date}</div> {/* showing date instead of content */}
             </div>
             <button 
-              onClick={() => deleteBlog(blog._id)} 
+              onClick={(e) => {e.preventDefault(),e.stopPropagation() ,deleteBlog(blog._id)}} 
               className="text-red-600 px-3 py-2 rounded-lg hover:text-red-700 cursor-pointer"
             >
               <Trash />

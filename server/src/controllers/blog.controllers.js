@@ -28,7 +28,16 @@ const getAllBlog= AsyncHandler(async(req,res)=>{
     return res.status(200).json(new ApiRespons(200,data,'all the blogs send'))
     
 })
+const DeleteBlog=AsyncHandler(async(req,res)=>{
+
+    const {_id}=req.body
+    const data=await Blog.findByIdAndDelete(_id)
+    if(!data){
+        throw new ApiError(400,'DELETING THE BLOG wrong blog id is given ')
+    }
+    return res.status(200).json(new ApiRespons(200,{}, 'blog is deleted')  )
+})
 
 
 
-export {CreateBlog,getAllBlog}
+export {CreateBlog,DeleteBlog,getAllBlog}
