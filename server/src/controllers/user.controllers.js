@@ -117,13 +117,13 @@ const logoutUser=AsyncHandler(async(req,res)=>{
         .clearCookie("RefreshToken",Option)
         .json(new ApiRespons(200,{},"User loggedout succefully"))
         console.log("✅ AccessToken cookie sent with value:", AccessToken);
+})
 
-
-        
- 
-
+const getme=AsyncHandler(async(req,res)=>{
+    const user=req.auth
+    return res.status(200).json(new ApiRespons(200,user,'send me'))
 })
 
 
 
-export {createAccount ,loginuser,logoutUser}
+export {createAccount ,loginuser,logoutUser,getme}
