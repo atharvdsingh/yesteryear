@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import { createAccount, getme, loginuser, logoutUser } from '../controllers/user.controllers.js'
-import { checkJwt } from '../middlewares/auth.middleware.js';
-import { CreateBlog } from '../controllers/blog.controllers.js';
+
+import {checkJwt} from "../middlewares/auth.middleware.js"
 
 const user=Router()
 

@@ -16,25 +16,37 @@ import Procted from "./Componments/Procted";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { login } from "./store/authSlice";
+import { LoaderCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 function App() {
   axios.defaults.baseURL=import.meta.env.VITE_USER_URL
   const dispatcher=useDispatch()
+  const [loading,setLoading]=useState(true)
 
   const fetchUser=async ()=>{
-    const user=await axios.post('getme',{},{
-      withCredentials:true
-    })
-    console.log(user);
-    if(!user){
-      return
-    }
-    dispatcher(login(user.data.data))
+try {
+      const user=await axios.post('getme',{},{
+        withCredentials:true
+      })
+      console.log(user);
+      if(!user){
+        return
+      }
+      dispatcher(login(user.data.data))
+} catch (error) {
+  toast.error(error.data)
+  
+}
+finally{
+  setLoading(false)
+}
     
     
   }
   useEffect(()=>{
     fetchUser()
+ 
 
 
 
@@ -111,9 +123,19 @@ function App() {
     },
   ]);
 
+  
+
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>
+    {
+      loading ?(
+      
+        <div>
+          <LoaderCircle className="animate-spin" />
+        </div>
+      ):(<RouterProvider router={router}></RouterProvider>)
+    }
+      
     </>
   );
 }
