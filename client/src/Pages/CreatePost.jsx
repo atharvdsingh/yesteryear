@@ -16,16 +16,12 @@ export default function CreatePost() {
         const respons=await axios.post('create-blog',data,{
             withCredentials:true
         })
-        if(!respons){
-            console.log(respons);
-            console.log('error');
-        }
-        console.log(respons);
+
         toast.success('done')
         
         
     } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message)
         setLoading(false)
 
         

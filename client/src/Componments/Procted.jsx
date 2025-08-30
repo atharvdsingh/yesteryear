@@ -20,7 +20,7 @@ export default function Procted( { children, authentication = true }) {
             
         }, 1);
     }
-  }, [authentication, navigator, status]);
+  }, [authentication, navigator,status]);
 
   return loading ? (
     <div className="h-[100vh]  w-[100vw] bg-black" ></div>

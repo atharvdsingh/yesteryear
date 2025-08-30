@@ -39,9 +39,25 @@ function LandingPage() {
           <div className="flex flex-wrap justify-center gap-10 items-center">
 
     {
-      status ? (<button onClick={() => navigate("/all-post")}>
+      status ? (
+        <div className="flex justify-center items-center gap-10 " >
+
+
+        <button onClick={() => navigate("/all-post")}>
+        
               <Buttom container={<Ghost />} text={"Blogs"}></Buttom>
-            </button>):(<button onClick={() => navigate("/create-account")}>
+              
+            </button> 
+<div className="text-white" >
+
+<Logout/>
+</div>
+
+        </div>
+            
+      
+          
+          ):(<button onClick={() => navigate("/create-account")}>
               <Buttom container={<Ghost />} text={"Get Started"}></Buttom>
             </button>)
     }

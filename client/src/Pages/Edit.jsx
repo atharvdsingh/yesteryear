@@ -31,8 +31,8 @@ export default function Edit() {
         toast.success("Blog updated successfully ✅");
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong ❌");
+
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }

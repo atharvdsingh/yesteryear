@@ -99,7 +99,7 @@ export default function AllPost() {
                           e.stopPropagation();
                           deleteBlog(blog._id);
                         }}
-                        className="p-2 rounded-lg text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition"
+                        className="p-2 rounded-lg cursor-pointer text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition"
                       >
                         <Trash />
                       </button>
@@ -110,7 +110,7 @@ export default function AllPost() {
                           e.stopPropagation();
                           navigator(`/edit/${blog._id}`);
                         }}
-                        className="p-2 rounded-lg text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 transition"
+                        className="p-2 rounded-lg  cursor-pointer text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 transition"
                       >
                         <Edit />
                       </button>

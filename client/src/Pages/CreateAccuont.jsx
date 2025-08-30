@@ -39,7 +39,7 @@ function CreateAccuont() {
       );
       if (!respons2) {
         setLoading(false);
-        toast.error("user not logged in ");
+        toast.error(error.response.data.message);
       }
       dispatcher(login(respons2.data.user));
       navigate("/");

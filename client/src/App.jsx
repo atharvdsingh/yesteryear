@@ -4,7 +4,7 @@ import LandingPage from "./Pages/LandingPage";
 import Footer from "./Componments/Footer";
 import Login from "./Pages/Login";
 import CreateAccuont from "./Pages/CreateAccuont";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, data, RouterProvider } from "react-router";
 import CreatePost from "./Pages/CreatePost";
 import Layoout from "./Componments/Layoout";
 import Container from "./Componments/Container";
@@ -18,32 +18,29 @@ import axios from "axios";
 import { login } from "./store/authSlice";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import Logout from "./Componments/Logout";
 
 function App() {
   axios.defaults.baseURL=import.meta.env.VITE_USER_URL
   const dispatcher=useDispatch()
   const [loading,setLoading]=useState(true)
 
-  const fetchUser=async ()=>{
-try {
-      const user=await axios.post('getme',{},{
-        withCredentials:true
-      })
-      console.log(user);
-      if(!user){
-        return
-      }
-      dispatcher(login(user.data.data))
-} catch (error) {
-  toast.error(error.data)
-  
-}
-finally{
-  setLoading(false)
-}
-    
-    
+const fetchUser = async () => {
+  try {
+    const res = await axios.post("getme", {}, { withCredentials: true });
+
+    if (res.data.success) {
+      dispatcher(login(res.data.data));
+    }
+  } catch (error) {
+    // Suppress 401 (not logged in), log only unexpected errors
+    if (error.response?.status !== 401) {
+      console.error("fetchUser error:", error.response?.data || error.message);
+    }
+  } finally {
+    setTimeout(() => setLoading(false), 1000);
   }
+};
   useEffect(()=>{
     fetchUser()
  
@@ -130,8 +127,8 @@ finally{
     {
       loading ?(
       
-        <div>
-          <LoaderCircle className="animate-spin" />
+        <div className="flex justify-center items-center min-h-screen bg-black" >
+          <p className="text-white font-extrabold text-2xl " >YesterYear</p>
         </div>
       ):(<RouterProvider router={router}></RouterProvider>)
     }
