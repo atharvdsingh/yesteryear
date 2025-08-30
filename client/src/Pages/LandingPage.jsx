@@ -1,7 +1,7 @@
 import React from "react";
 import Buttom from "../Componments/Buttom";
 import Footer from "../Componments/Footer";
-import { Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
+import { CircleUser, FileStack, Ghost, Heart, HeartCrack, ListStart } from "lucide-react";
 import Input from "../Componments/Input";
 import { useNavigate } from "react-router";
 import Logout from "../Componments/Logout";
@@ -45,7 +45,7 @@ function LandingPage() {
 
         <button onClick={() => navigate("/all-post")}>
         
-              <Buttom container={<Ghost />} text={"Blogs"}></Buttom>
+              <Buttom container={<FileStack />} text={"Blogs"}></Buttom>
               
             </button> 
 <div className="text-white" >
@@ -58,7 +58,7 @@ function LandingPage() {
       
           
           ):(<button onClick={() => navigate("/create-account")}>
-              <Buttom container={<Ghost />} text={"Get Started"}></Buttom>
+              <Buttom container={<CircleUser/>} text={"Get Started"}></Buttom>
             </button>)
     }
 

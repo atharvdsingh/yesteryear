@@ -1,4 +1,4 @@
-import { LoaderCircle, Lock, LogIn, Mail } from "lucide-react";
+import { Home, LoaderCircle, Lock, LogIn, Mail } from "lucide-react";
 import React, { useState } from "react";
 import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
@@ -102,6 +102,11 @@ function Login() {
       <p className="text-gray-500 text-sm mt-3 mb-11">
         Don’t have an account?{" "}
         <Link className="text-blue-600" to={'/create-account'} >Create Account</Link>
+        <div className="flex justify-center gap-1" >
+
+      
+      <Link className="text-blue-600 " to="/" > <Home className="w-5  " /></Link>
+        </div>
       </p>
     </form>
         </>

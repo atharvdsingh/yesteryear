@@ -1,4 +1,4 @@
-import { LoaderCircleIcon, Lock, LucideClockFading, Mail, User } from "lucide-react";
+import { Home, LoaderCircleIcon, Lock, LucideClockFading, Mail, User } from "lucide-react";
 import React, { useState } from "react";
 import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
@@ -47,8 +47,8 @@ function CreateAccuont() {
     } catch (error) {
       setLoading(false);
 
-      toast.error(error);
-      console.log(error);
+      toast.error(error.response.data.message);
+   
     }
   };
   return (
@@ -118,12 +118,20 @@ function CreateAccuont() {
              ):('Create Account')}
         
       </button>
-      <p className="text-gray-500 text-sm mt-3 mb-11">
+      <div className="text-gray-500 text-sm mt-3 mb-11">
         Don’t have an account?
         <Link className="text-blue-600" to={"/login"}>
           Login
         </Link>
-      </p>
+                <div className="flex justify-center gap-1" >
+
+      
+      <Link className="text-blue-600 " to="/" > <Home className="w-5  " /></Link>
+        </div>
+        
+      </div>
+
+   
     </form>
   );
 }

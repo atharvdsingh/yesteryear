@@ -37,9 +37,9 @@ function Logout() {
 
   return (
     <button  onClick={handleLogoutt } >
-        <Buttom text={"Logout"} >
+        <Buttom text={"Logout"} container={    <Power className='w-4' />} >
 
-        <Power/>
+    
         </Buttom>
 
 
