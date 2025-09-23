@@ -11,7 +11,7 @@ const CreateBlog=AsyncHandler(async(req,res)=>{
         const {content,title,publish}=req.body
         const user = await User.findById(_id)
         if(!user){
-            throw new ApiRespons(401,"user is not authorize")
+            throw new ApiRespons(409,"user is not authorize")
         }
         const blog=await Blog.create({title,content,publish,author:_id})
         if(!blog){
@@ -33,7 +33,7 @@ const DeleteBlog=AsyncHandler(async(req,res)=>{
     const {_id}=req.body
     const data=await Blog.findByIdAndDelete(_id)
     if(!data){
-        throw new ApiError(401,'DELETING THE BLOG wrong blog id is given ')
+        throw new ApiError(409,'DELETING THE BLOG wrong blog id is given ')
     }
     return res.status(200).json(new ApiRespons(200,{}, 'blog is deleted')  )
 })
@@ -47,7 +47,7 @@ const EditBlog=AsyncHandler(async(req,res)=>{
         new:true
     })
     if(!data){
-        throw new ApiError(401,"blog does not found")
+        throw new ApiError(409,"blog does not found")
     }
     return res.status(200).json(new ApiRespons(200,data,'blog is edited'))
 

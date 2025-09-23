@@ -35,7 +35,8 @@ const fetchUser = async () => {
   } catch (error) {
     // Suppress 401 (not logged in), log only unexpected errors
     if (error.response?.status !== 401) {
-      console.error("fetchUser error:", error.response?.data || error.message);
+      console.log();
+      
     }
   } finally {
     setTimeout(() => setLoading(false), 1000);

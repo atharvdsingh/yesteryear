@@ -25,11 +25,9 @@ function Login() {
      const  user  = await axios.post('login',data,{
        withCredentials:true
      });
-     if(!user){
-      // toast.error("user cant be login",user)
-      console.log(user);
-      
-     }
+    
+
+     
      console.log(user);
      disPatcher(login(user.data.data))
      
@@ -99,15 +97,15 @@ function Login() {
         }
         
       </button>
-      <p className="text-gray-500 text-sm mt-3 mb-11">
+      <div className="text-gray-500 text-sm mt-3 mb-11">
         Don’t have an account?{" "}
         <Link className="text-blue-600" to={'/create-account'} >Create Account</Link>
-        <div className="flex justify-center gap-1" >
+        <div className="flex justify-center gap-2 " >
 
       
       <Link className="text-blue-600 " to="/" > <Home className="w-5  " /></Link>
         </div>
-      </p>
+      </div>
     </form>
         </>
 

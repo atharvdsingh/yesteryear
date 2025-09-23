@@ -40,7 +40,7 @@ function LandingPage() {
 
     {
       status ? (
-        <div className="flex justify-center items-center gap-10 " >
+        <div className="flex justify-center items-center gap-3 " >
 
 
         <button onClick={() => navigate("/all-post")}>

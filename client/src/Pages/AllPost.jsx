@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Edit, LoaderCircle, Trash } from "lucide-react";
+import { Edit, HomeIcon, LoaderCircle, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,11 +62,14 @@ export default function AllPost() {
       <div className="max-w-3xl mx-auto py-10 px-4">
         <div className="flex justify-between px-3 items-center  ">
 
-        <h1 className="text-2xl font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6">
+        <h1 className="text-2xl font-bold  border-b border-gray-300 dark:border-gray-700 pb-4 mb-6">
           My Blogs
         </h1>
+        <div className="flex justify-center flex-wrap gap-1 " >
 
         <Link to={'/create-post'} className="text-2xl text-green-400 font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6" > Create Post </Link>
+        <Link to="/" ><HomeIcon/></Link>
+        </div>
         </div>
 
         {loading ? (

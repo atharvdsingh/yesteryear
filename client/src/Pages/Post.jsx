@@ -11,7 +11,7 @@ function Post() {
 
   if (!gg) {
     return (
-      <div className="flex justify-center items-center  min-h-screen text-white bg-black">
+      <div className="flex justify-center items-center w-full  min-h-screen text-white bg-black">
         <h2 className="text-xl font-semibold">Blog not found</h2>
       </div>
     );

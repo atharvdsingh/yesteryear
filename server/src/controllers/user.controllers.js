@@ -26,7 +26,7 @@ const createAccount=AsyncHandler(async (req,res)=>{
 
         const {userName,email,password}=req.body 
         if([userName,email,password].some((data)=>data?.trim()==='')){
-            throw new ApiError(407,'credintial required')
+            throw new ApiError(409,'credintial required')
         }
 
         const exitedUser=await User.findOne(
@@ -34,10 +34,9 @@ const createAccount=AsyncHandler(async (req,res)=>{
             $or:[{email},{userName}]
         }
         )
-        console.log(exitedUser);
         
         if(exitedUser){
-            throw new ApiError(407,'user already exist')
+            throw new ApiError(409,'user already exist')
         }
         const user=await User.create({userName,email,password})
 
@@ -54,24 +53,24 @@ const loginuser=AsyncHandler(async(req,res)=>{
         console.log(email,password);
         
         if( !email){
-            throw new  ApiError(407,"Gmail and Password missing")
+            throw new  ApiError(409,"Gmail and Password missing")
         }
         if(!password){
-            throw new ApiError(407,"Password is missing")
+            throw new ApiError(409,"Password is missing")
         }
         const user=await User.findOne({email
         })
         if(!user){
             console.log('can not find the user');
             
-            throw new ApiError(407,'User does not exist')
+            throw new ApiError(409,'User does not exist')
         }
         console.log('user not exist');
         
 
         const currectPassword=await user.isPasswordCorrect(password)
         if(!currectPassword){
-            throw new ApiError(407,'wrong password')
+            throw new ApiError(409,'wrong password')
         }
         console.log(user._id);
         
@@ -103,7 +102,7 @@ const logoutUser=AsyncHandler(async(req,res)=>{
         const {_id}=req.auth
         const user=await User.findById(_id)
         if(!user){
-            throw new ApiError(401,"unAuthorize user")
+            throw new ApiError(409,"unAuthorize user")
         }
         
         user.AccessToken=undefined
