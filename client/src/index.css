@@ -1,16 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-inter: "Inter", sans-serif;
-  --font-playfair: "Playfair Display", serif;
-  
+  --font-inter: "Manrope", sans-serif;
+  --font-playfair: "Cormorant Garamond", serif;
+
   --color-background: #000000;
   --color-surface: #111111;
   --color-surface-hover: #222222;
+  
   --color-text-primary: #ffffff;
   --color-text-secondary: #a1a1aa;
-  --color-border: #333333;
+  --color-text-muted: #52525b;
+
+  --color-border: #27272a;
+  --color-border-hover: #3f3f46;
+
   --color-accent: #ffffff;
   --color-accent-inverse: #000000;
 }
@@ -25,6 +30,7 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-inter);
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
