@@ -7,12 +7,12 @@ function Footer() {
             <div className="flex items-center gap-4 mt-8 text-indigo-500">
             
 
-                <a href="https://www.linkedin.com/in/atharv-dev-singh-621437332/" className="hover:-translate-y-0.5 transition-all duration-300">
+                <a href="https://www.linkedin.com/in/atharv-dev-singh-621437332/" target='_blank' className="hover:-translate-y-0.5 transition-all duration-300">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6M6 9H2v12h4zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </a>
-                <a href="https://x.com/Atharv_code" className="hover:-translate-y-0.5 transition-all duration-300">
+                <a href="https://x.com/Atharv_code"  target='_blank' className="hover:-translate-y-0.5 transition-all duration-300">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

@@ -28,6 +28,15 @@ const getAllBlog= AsyncHandler(async(req,res)=>{
     return res.status(200).json(new ApiRespons(200,data,'all the blogs send'))
     
 })
+
+const GetPublicBlog=AsyncHandler(async(req,res)=>{
+     const data= await Blog.find(publish=true)
+     if(!data){
+         throw new ApiError(500,"server is busy")
+     }
+     return res.status(200).json(new ApiRespons(2,data,"all the blogs is send"))
+})
+
 const DeleteBlog=AsyncHandler(async(req,res)=>{
 
     const {_id}=req.body

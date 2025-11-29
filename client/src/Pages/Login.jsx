@@ -37,7 +37,10 @@ function Login() {
   toast.error(error.response.data.message)
   
  }
- setLoading(false)
+ finally{
+
+   setLoading(false)
+ }
   
     
     // console.log(user);

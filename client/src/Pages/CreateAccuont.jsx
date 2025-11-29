@@ -50,7 +50,8 @@ function CreateAccuont() {
       toast.error(error.response.data.message);
    
     }
-  };
+  }
+  ;
   return (
     <form
       onSubmit={handleSubmit(Createaccount)}
