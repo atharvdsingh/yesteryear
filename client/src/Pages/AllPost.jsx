@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Edit, HomeIcon, LoaderCircle, Trash } from "lucide-react";
+import { Edit, HomeIcon, LoaderCircle, Trash, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { add } from "../store/blogSlice";
 
@@ -23,14 +23,14 @@ export default function AllPost() {
       );
       if (!data) {
         setLoading(false);
-        toast.error("Something went wrong ❌");
+        toast.error("Something went wrong");
         return;
       }
       setBlogs(data.data.data);
       dispatcher(add(data.data.data));
     } catch (error) {
       console.log(error);
-      toast.error("Failed to fetch blogs ❌");
+      toast.error("Failed to fetch blogs");
     } finally {
       setLoading(false);
     }
@@ -49,79 +49,91 @@ export default function AllPost() {
           withCredentials: true,
         }
       );
-      toast.success("Blog deleted ✅");
+      toast.success("Blog deleted");
       fetchData();
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong while deleting ❌");
+      toast.error("Something went wrong while deleting");
     }
   };
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
-      <div className="max-w-3xl mx-auto py-10 px-4">
-        <div className="flex justify-between px-3 items-center  ">
-
-        <h1 className="text-2xl font-bold  border-b border-gray-300 dark:border-gray-700 pb-4 mb-6">
-          My Blogs
-        </h1>
-        <div className="flex justify-center flex-wrap gap-1 " >
-
-        <Link to={'/create-post'} className="text-2xl text-green-400 font-bold border-b border-gray-300 dark:border-gray-700 pb-4 mb-6" > Create Post </Link>
-        <Link to="/" ><HomeIcon/></Link>
-        </div>
+    <div className="min-h-screen w-full px-4 py-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-center mb-12 border-b border-white/10 pb-6">
+          <h1 className="text-3xl md:text-4xl font-playfair text-white">
+            My Journals
+          </h1>
+          <div className="flex items-center gap-4">
+            <Link 
+              to={'/create-post'} 
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-gray-200 transition-all"
+            > 
+              <Plus size={18} />
+              <span>Create</span>
+            </Link>
+            <Link to="/" className="p-2 text-gray-400 hover:text-white transition-colors">
+              <HomeIcon size={24}/>
+            </Link>
+          </div>
         </div>
 
         {loading ? (
-          <div className="flex justify-center">
-            <LoaderCircle className="animate-spin w-8 h-8 text-blue-600" />
+          <div className="flex justify-center py-20">
+            <LoaderCircle className="animate-spin w-10 h-10 text-white" />
           </div>
         ) : (
-          <ul className="space-y-4">
-            {blogs &&
+          <div className="grid gap-6">
+            {blogs && blogs.length > 0 ? (
               blogs.map((blog) => (
                 <Link
                   key={blog._id}
                   to={`/blog/${blog._id}`}
-                  className="block border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-xl p-4 hover:shadow-lg transition"
+                  className="group block border border-white/10 bg-white/5 rounded-2xl p-6 hover:border-white/30 hover:bg-white/10 transition-all duration-300"
                 >
-                  <div className="flex justify-between items-center">
-                    {/* Blog Info */}
-                    <div>
-                      <h2 className="text-lg font-semibold">{blog.title}</h2>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1">
+                      <h2 className="text-xl md:text-2xl font-playfair text-white mb-2 group-hover:underline decoration-white/30 underline-offset-4">
+                        {blog.title}
+                      </h2>
+                      <p className="text-sm text-gray-500 font-inter">
                         {blog.date}
                       </p>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          deleteBlog(blog._id);
-                        }}
-                        className="p-2 rounded-lg cursor-pointer text-red-600 hover:bg-red-100 dark:hover:bg-red-900 transition"
-                      >
-                        <Trash />
-                      </button>
-
+                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           navigator(`/edit/${blog._id}`);
                         }}
-                        className="p-2 rounded-lg  cursor-pointer text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900 transition"
+                        className="p-2 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                        title="Edit"
                       >
-                        <Edit />
+                        <Edit size={18} />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          deleteBlog(blog._id);
+                        }}
+                        className="p-2 rounded-full text-gray-400 hover:text-red-400 hover:bg-red-400/10 transition-all"
+                        title="Delete"
+                      >
+                        <Trash size={18} />
                       </button>
                     </div>
                   </div>
                 </Link>
-              ))}
-          </ul>
+              ))
+            ) : (
+              <div className="text-center py-20 text-gray-500">
+                <p>No journals yet. Start writing your story.</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

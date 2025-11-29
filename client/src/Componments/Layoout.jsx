@@ -4,7 +4,7 @@ import Footer from './Footer'
 function Layoout() {
   return (
     <>
-    <main>
+    <main className="flex-grow w-full">
         <Outlet/>
     </main>
   
