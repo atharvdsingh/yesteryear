@@ -2,14 +2,13 @@ import { Home, LoaderCircle, Lock, Mail } from "lucide-react";
 import React, { useState } from "react";
 import Input from "../Componments/Input";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import api from "../api/axios";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
 
 function Login() {
-  axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ function Login() {
   const handleLogin = async (data) => {
     setLoading(true);
     try {
-      const user = await axios.post('login', data, {
+      const user = await api.post('user/login', data, {
         withCredentials: true
       });
       disPatcher(login(user.data.data));

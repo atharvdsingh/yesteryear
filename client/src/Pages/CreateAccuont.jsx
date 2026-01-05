@@ -7,9 +7,9 @@ import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice.js";
+import api from "../api/axios";
 
 function CreateAccuont() {
-  axios.defaults.baseURL = import.meta.env.VITE_USER_URL;
   const dispatcher = useDispatch();
 
   const { handleSubmit, register } = useForm();
@@ -19,14 +19,14 @@ function CreateAccuont() {
   const Createaccount = async (data) => {
     try {
       setLoading(true);
-      const respons = await axios.post("/register", data);
+      const respons = await api.post("user/register", data);
       if (!respons) {
         setLoading(false);
         return toast.error("Response error");
       }
 
-      const respons2 = await axios.post(
-        "/login",
+      const respons2 = await api.post(
+        "user/login",
         {
           email: data.email,
           password: data.password,

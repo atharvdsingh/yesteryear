@@ -5,17 +5,17 @@ import Buttom from './Buttom'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { logout } from '../store/authSlice'
+import api from '../api/axios'
 
 
 
 function Logout() {
-    axios.defaults.baseURL = import.meta.env.VITE_USER_URL
     const navigate=useNavigate()
     const dispatch=useDispatch()
     
     const handleLogoutt=async () =>{
         try {
-            const data= await axios.post('/logout',{},{
+            const data= await api.post('user/logout',{},{
                 withCredentials:true
             })
             console.log(data);

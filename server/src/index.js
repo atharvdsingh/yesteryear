@@ -8,7 +8,7 @@ const port= process.env.port || 8000
 
 db().then(
     app.listen(port,()=>{
-        console.log(`server is listening at http://localhost:${port}`);
+        console.log(`server is listening at port : ${port}`);
         
     })
 ).catch('mongo db connection failed')

@@ -4,16 +4,16 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router';
+import api from '../api/axios';
 
 export default function CreatePost() {
-    axios.defaults.baseURL=import.meta.env.VITE_BLOG_URL
   const { register, handleSubmit, reset, watch } = useForm();
   const [loading,setLoading]=useState(false)
 
   const onSubmit = async (data) => {
     try {
         setLoading(true)
-        await axios.post('create-blog',data,{
+        await api.post('blog/create-blog',data,{
             withCredentials:true
         })
 

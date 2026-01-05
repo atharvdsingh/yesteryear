@@ -14,20 +14,19 @@ import Post from "./Pages/Post";
 import Edit from "./Pages/Edit";
 import Procted from "./Componments/Procted";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import api from "./api/axios";
 import { login } from "./store/authSlice";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import Logout from "./Componments/Logout";
 
 function App() {
-  axios.defaults.baseURL=import.meta.env.VITE_USER_URL
   const dispatcher=useDispatch()
   const [loading,setLoading]=useState(true)
 
 const fetchUser = async () => {
   try {
-    const res = await axios.post("getme", {}, { withCredentials: true });
+    const res = await api.post("user/getme", {}, { withCredentials: true });
 
     if (res.data.success) {
       dispatcher(login(res.data.data));

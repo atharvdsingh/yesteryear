@@ -5,9 +5,9 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { add } from "../store/blogSlice";
+import api from "../api/axios";
 
 export default function AllPost() {
-  axios.defaults.baseURL = import.meta.env.VITE_BLOG_URL;
   const [loading, setLoading] = useState(false);
   const [blogs, setBlogs] = useState();
   const dispatcher = useDispatch();
@@ -16,8 +16,8 @@ export default function AllPost() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const data = await axios.post(
-        "get-all-blog",
+      const data = await api.post(
+        "blog/get-all-blog",
         {},
         { withCredentials: true }
       );
@@ -42,8 +42,8 @@ export default function AllPost() {
 
   const deleteBlog = async (_id) => {
     try {
-      await axios.post(
-        "delete-post",
+      await api.post(
+        "blog/delete-post",
         { _id },
         {
           withCredentials: true,

@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
+import api from "../api/axios";
 
 export default function Edit() {
-  axios.defaults.baseURL = import.meta.env.VITE_BLOG_URL;
   const { id } = useParams();
   const { register, handleSubmit, reset, watch } = useForm();
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function Edit() {
   const onSubmit = async (formData) => {
     try {
       setLoading(true);
-      const response = await axios.post('/edit', formData, {
+      const response = await api.post('blog/edit', formData, {
         withCredentials: true,
       });
 
